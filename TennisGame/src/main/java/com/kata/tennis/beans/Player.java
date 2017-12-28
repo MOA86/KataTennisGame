@@ -3,17 +3,17 @@ package com.kata.tennis.beans;
 public class Player {
 
 	/**
-	 * nom du jouer
+	 * nom du joueur
 	 */
 	private String name;
 	
 	/**
-	 * score du jour en temps reel
+	 * score du joueur en temps reel
 	 */
 	private int score;
 	
 	/**
-	 * statut du jour ( vainquer, perdant, égalité)
+	 * statut du joueur ( vainquer, perdant, égalité)
 	 */
 	private String statut;
 	
@@ -35,7 +35,7 @@ public class Player {
 	}
 	
 	/**
-	 * constructeur d'un jour avec un score à 0
+	 * constructeur d'un joueur avec un score à 0
 	 * @param name
 	 */
 	public Player (String name){

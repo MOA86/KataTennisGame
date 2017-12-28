@@ -63,7 +63,7 @@ public class AppTest {
 	/**
 	 * 
 	 */
-	//@Test
+	@Test
 	public void testWinGame(){
 		match.winGame();
 	}
@@ -71,7 +71,7 @@ public class AppTest {
 	 /**
 	 * 
 	 */
-	//@Test
+	@Test
 	 public void testSet(){
 		 match.winSet();
 	 }
@@ -79,7 +79,7 @@ public class AppTest {
 	/**
 	 * 
 	 */
-	//@Test
+	@Test
 	public void testWinMatch(){
 		match.winMatch();
 		
@@ -88,7 +88,7 @@ public class AppTest {
 	/**
 	 * 
 	 */
-	//@Test
+	@Test
 	public void testwinTieBreak(){
 		match.winTieBreak(player1, player2);
 	}
@@ -96,7 +96,7 @@ public class AppTest {
 	/**
 	 * 
 	 */
-	//@Test
+	@Test
 	public void isAdvantage(){
 		match.isAdvantage(player1);
 	}
@@ -104,7 +104,7 @@ public class AppTest {
 	/**
 	 * 
 	 */
-	//@Test
+	@Test
 	public void isDuce(){
 		match.isDuce();
 	}

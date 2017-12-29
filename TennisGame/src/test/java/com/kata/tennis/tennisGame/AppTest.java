@@ -55,8 +55,6 @@ public class AppTest {
 	 */
 	@Test
 	public void testScorePoint(){
-		player1.setScore(5);
-		player2.setScore(4);
 		 match.scorePoint();
 	}
 	

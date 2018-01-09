@@ -2,8 +2,9 @@ package com.kata.tennis.tennisGame;
 
 import com.kata.tennis.beans.Player;
 
+
 /**
- * @author ETP7361
+ * @author m.oumoula
  *
  */
 public interface IMatch {
@@ -47,5 +48,10 @@ public interface IMatch {
 	 * 
 	 * 
 	 */
-	public Player winTieBreak (Player player1, Player player2);
+	public Player winTieBreak ();
+	
+	/**
+	 * @return
+	 */
+	public boolean isTieBreak();
 }

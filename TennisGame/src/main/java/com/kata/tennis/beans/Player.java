@@ -1,5 +1,10 @@
 package com.kata.tennis.beans;
 
+
+/**
+ * @author m.oumoula
+ *
+ */
 public class Player {
 
 	/**
@@ -13,19 +18,24 @@ public class Player {
 	private int score;
 	
 	/**
-	 * statut du joueur ( vainquer, perdant, égalité)
+	 * libelle du score du joueur ( )
 	 */
 	private String statut;
 	
 	/**
-	 * 
+	 * jeux gagne 
 	 */
 	private int game;
 		
 	/**
-	 * 
+	 * set gagne
 	 */
 	private int set;
+	
+	/**
+	 * score tie break
+	 */
+	private int tieBreakScore;
 	
 	/**
 	 * constructeur par default
@@ -35,13 +45,16 @@ public class Player {
 	}
 	
 	/**
-	 * constructeur d'un joueur avec un score à 0
+	 * constructeur d'un joueur initialise
 	 * @param name
 	 */
 	public Player (String name){
 		this.name = name;
 		this.score = 0;
 		this.game = 0;
+		this.tieBreakScore = 0;
+		this.set = 0;
+		this.statut = "Zero";
 	}
 
 	/**
@@ -109,11 +122,8 @@ public class Player {
 	 * 
 	 */
 	public void addGame(){
-		if(this.game < 7){
 			this.game++;
-		}
 	}
-	
 	
 	/**
 	 * @return
@@ -133,17 +143,37 @@ public class Player {
 		this.set++;
 	}
 
+	/**
+	 * @return
+	 */
+	public int getTieBreakScore() {
+		return tieBreakScore;
+	}
+
+	/**
+	 * @param tieBreakScore
+	 */
+	public void setTieBreakScore(int tieBreakScore) {
+		this.tieBreakScore = tieBreakScore;
+	}
+
+	/**
+	 * 
+	 */
+	public void addTieBreakScore(){
+		this.tieBreakScore ++;
+	}
+
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Player [name=" + name + ", score=" + score + ", statut="
-				+ statut + ", game=" + game + ", set=" + set + "]";
+				+ statut + ", game=" + game + ", set=" + set
+				+ ", tieBreakScore=" + tieBreakScore + "]";
 	}
 
 	
-	
-
-	
-}
+	}

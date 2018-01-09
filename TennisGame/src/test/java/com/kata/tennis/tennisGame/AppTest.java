@@ -55,7 +55,16 @@ public class AppTest {
 	 */
 	@Test
 	public void testScorePoint(){
-		 match.scorePoint();
+		player1.setScore(0);
+		player2.setScore(0);
+		match.scorePoint();
+		player1.setScore(3);
+		player2.setScore(3);
+		match.scorePoint();
+		player1.setScore(4);
+		player2.setScore(5);
+		match.scorePoint();
+				
 	}
 	
 	/**
@@ -63,6 +72,7 @@ public class AppTest {
 	 */
 	@Test
 	public void testWinGame(){
+		
 		match.winGame();
 	}
 	
@@ -88,7 +98,9 @@ public class AppTest {
 	 */
 	@Test
 	public void testwinTieBreak(){
-		match.winTieBreak(player1, player2);
+		player1.setGame(6);
+		player2.setGame(6);
+		match.winTieBreak();
 	}
 	
 	/**

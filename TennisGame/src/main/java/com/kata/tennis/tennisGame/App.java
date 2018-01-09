@@ -1,13 +1,16 @@
 package com.kata.tennis.tennisGame;
 
+import com.kata.tennis.beans.Player;
+
 /**
- * Hello world!
+ * @author m.oumoula
  *
  */
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+    	new Match(new Player("Federer"), new Player("Nadal")).start();
+           
     }
 }

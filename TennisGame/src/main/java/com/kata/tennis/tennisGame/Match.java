@@ -8,12 +8,8 @@ import org.apache.log4j.Logger;
 import com.kata.tennis.beans.Player;
 
 /**
- * @author ETP7361
- *
- */
-/**
- * @author ETP7361
- *
+ * @author m.oumoula
+ * 
  */
 public class Match implements IMatch {
 
@@ -60,12 +56,15 @@ public class Match implements IMatch {
 
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.kata.tennis.TennisGame.IMatch#scorePoint()
 	 */
-	@Override
+
 	public Player scorePoint() {
+		// Génération d’un entier aléatoire si paire point au joueur 1 sinon
+		// point au jour 2
 		Random rand = new Random();
 		if (Math.abs(rand.nextInt()) % 2 == 1) {
 			if (player1.getScore() < 3) {
@@ -74,8 +73,10 @@ public class Match implements IMatch {
 
 			} else {
 				if (isDuce()) {
-					player1.addScore();
+					player1.setScore(5);
 					player1.setStatut(scoreMap.get(player1.getScore()));
+					player2.setScore(4);
+					player2.setStatut(scoreMap.get(player2.getScore()));
 				} else if (isAdvantage(player2)) {
 					player1.setScore(4);
 					player1.setStatut(scoreMap.get(player1.getScore()));
@@ -86,7 +87,9 @@ public class Match implements IMatch {
 					player1.setScore(6);
 				}
 			}
-			logger.info(" Point :" + player1.toString());
+			logger.info(" Point : " + player1.getName() + " score :  "
+					+ player1.getStatut() + " / " + player2.getName()
+					+ " score :  " + player2.getStatut());
 			return player1;
 		} else {
 			if (player2.getScore() < 3) {
@@ -94,8 +97,10 @@ public class Match implements IMatch {
 				player2.setStatut(scoreMap.get(player2.getScore()));
 			} else {
 				if (isDuce()) {
-					player2.addScore();
+					player2.setScore(5);
 					player2.setStatut(scoreMap.get(player2.getScore()));
+					player1.setScore(4);
+					player1.setStatut(scoreMap.get(player1.getScore()));
 				} else if (isAdvantage(player1)) {
 					player2.setScore(4);
 					player2.setStatut(scoreMap.get(player2.getScore()));
@@ -106,95 +111,150 @@ public class Match implements IMatch {
 					player2.setScore(6);
 				}
 			}
-			logger.info(" Point :" + player2.toString());
+			logger.info(" Point : " + player1.getName() + " score :  "
+					+ player1.getStatut() + " / " + player2.getName()
+					+ " score :  " + player2.getStatut());
 			return player2;
 		}
 
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.kata.tennis.TennisGame.IMatch#winGame()
 	 */
-	@Override
+
 	public Player winGame() {
 		boolean statutGame = true;
-		Player curruntPlayer = null;
+		Player CurrentPlayer = null;
 		while (statutGame) {
-			curruntPlayer = scorePoint();
-			statutGame = !curruntPlayer.getStatut().equals(scoreMap.get(6));
+			CurrentPlayer = scorePoint();
+			statutGame = !CurrentPlayer.getStatut().equals(scoreMap.get(6));
 		}
-		curruntPlayer.addGame();
-		logger.info("Game : " + curruntPlayer.toString());
+		CurrentPlayer.addGame();
+		logger.info("Game : " + CurrentPlayer.getName() + " statut : "
+				+ CurrentPlayer.getStatut() + " game : "
+				+ CurrentPlayer.getGame());
 		initializeScore();
-		return curruntPlayer;
+		return CurrentPlayer;
 	}
 
-	
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.kata.tennis.TennisGame.IMatch#isDuce()
 	 */
-	@Override
+
 	public boolean isDuce() {
 
 		return (player1.getScore() == player2.getScore()) ? true : false;
 	}
 
-	
-	/* (non-Javadoc)
-	 * @see com.kata.tennis.TennisGame.IMatch#isAdvantage(com.kata.tennis.beans.Player)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.kata.tennis.TennisGame.IMatch#isAdvantage(com.kata.tennis.beans.Player
+	 * )
 	 */
-	@Override
+
 	public boolean isAdvantage(Player player) {
 
 		return (player.getScore() == 5) ? true : false;
 	}
 
-	
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.kata.tennis.TennisGame.IMatch#winSet()
 	 */
-	@Override
+
 	public Player winSet() {
-		Player curruntPlayer = null;
+		Player CurrentPlayer = null;
 		boolean statutSet = true;
 		while (statutSet) {
-			curruntPlayer = winGame();
-			statutSet = !(winGame().getGame() == 7);
+			CurrentPlayer = winGame();
+			statutSet = !(CurrentPlayer.getGame() == 6) && !isTieBreak();
 
 		}
-		curruntPlayer.addSet();
-		logger.info("Set : " + curruntPlayer.toString());
+		CurrentPlayer.addSet();
+		// si tie break
+		if (isTieBreak())
+			CurrentPlayer = winTieBreak();
+		logger.info("Set : " + CurrentPlayer.getName() + " statut : "
+				+ CurrentPlayer.getStatut() + " game : "
+				+ CurrentPlayer.getGame() + " set :" + CurrentPlayer.getSet());
 		initializeGame();
-		return curruntPlayer;
+		return CurrentPlayer;
 	}
 
-	
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.kata.tennis.TennisGame.IMatch#winMatch()
 	 */
-	@Override
+
 	public Player winMatch() {
-		Player curruntPlayer = null;
+		Player CurrentPlayer = null;
 		boolean statutMatch = true;
 
 		while (statutMatch) {
-			curruntPlayer = winSet();
-			statutMatch =! (curruntPlayer.getSet() == 3);
+			CurrentPlayer = winSet();
+			statutMatch = !(CurrentPlayer.getSet() == 3);
 
 		}
-
-		return curruntPlayer;
+		logger.info("Match winner : " + CurrentPlayer.getName());
+		return CurrentPlayer;
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.kata.tennis.TennisGame.IMatch#winTieBreak(com.kata.tennis.beans.Player, com.kata.tennis.beans.Player)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.kata.tennis.tennisGame.IMatch#winTieBreak()
 	 */
-	@Override
-	public Player winTieBreak(Player player1, Player player2) {
-		// TODO Stub de la méthode généré automatiquement
-		return null;
+	public Player winTieBreak() {
+		logger.info("Tie break rules : ");
+		boolean endTieBreak = true;
+		Player currentPlayer = null;
+		while (endTieBreak) {
+			Random rand = new Random();
+			if (Math.abs(rand.nextInt()) % 2 == 1) {
+				player1.addTieBreakScore();
+				endTieBreak = !(Math.abs(player1.getTieBreakScore()
+						- player2.getTieBreakScore()) == 2 && player1
+						.getTieBreakScore() >= 7);
+				currentPlayer = player1;
+			} else {
+				player2.addTieBreakScore();
+				endTieBreak = !(Math.abs(player1.getTieBreakScore()
+						- player2.getTieBreakScore()) == 2 && player2
+						.getTieBreakScore() >= 7);
+				currentPlayer = player2;
+			}
+		}
+		currentPlayer.addGame();
+		logger.info("Tie break winner : " + currentPlayer.getName()); 
+		logger.info("Tie break score : " + player1.getName() + " score : "+player1.getTieBreakScore() );
+		return currentPlayer;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.kata.tennis.tennisGame.IMatch#isTieBreak()
+	 */
+	public boolean isTieBreak() {
+
+		return (player1.getGame() == 6 && player2.getGame() == 6) ? true
+				: false;
+	}
+
+	/**
+	 * 
+	 */
+	public void start() {
+		winMatch();
 	}
 
 	/**
@@ -211,6 +271,8 @@ public class Match implements IMatch {
 	private void initializeScore() {
 		player1.setScore(0);
 		player2.setScore(0);
+		player1.setStatut("Zero");
+		player2.setStatut("Zero");
 	}
 
 	/**

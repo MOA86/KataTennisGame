@@ -10,26 +10,23 @@ import com.kata.tennis.beans.Player;
 public interface IMatch {
 
 	/**
-	 *
+	 * @return
 	 *
 	 */
 	public Player scorePoint();
 	
 	/**
-	 * 
-	 * 
+	 *  @return
 	 */
 	public Player winGame ();
 	
 	/**
-	 * @param player1
-	 * @param Player2
+	 *  @return
 	 */
 	public boolean isDuce ();
 	
 	/**
-	 * @param player1
-	 * @param Player2
+	 *  @return
 	 */
 	public boolean isAdvantage (Player player);
 	
@@ -39,14 +36,12 @@ public interface IMatch {
 	public Player winSet();
 	
 	/**
-	 *
-	 *
+	 * @return
 	 */
 	public Player winMatch ();
 	
 	/**
-	 * 
-	 * 
+	 *  @return
 	 */
 	public Player winTieBreak ();
 	
